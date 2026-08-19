@@ -1,6 +1,6 @@
 defmodule HeadsUpWeb.IncidentLive.Index do
   use HeadsUpWeb, :live_view
-  alias HeadsUpWeb.CustomComponents
+  import HeadsUpWeb.CustomComponents
 
   def mount(_params, _session, socket) do
     socket = assign(socket, :incidents, HeadsUp.Incidents.list_incidents())
@@ -9,6 +9,12 @@ defmodule HeadsUpWeb.IncidentLive.Index do
 
   def render(assigns) do
     ~H"""
+    <.headline>
+      <.icon name="hero-trophy-mini" /> 25 Incidents Resolved This Month!
+      <:tagline :let={emoji}>
+        Thanks for pitching in. {emoji}
+      </:tagline>
+    </.headline>
     <div class="incident-index">
       <div class="incidents">
         <.incident_card :for={incident <- @incidents} incident={incident} />
@@ -25,7 +31,7 @@ defmodule HeadsUpWeb.IncidentLive.Index do
       <img src={@incident.image_path} />
       <h2>{@incident.name}</h2>
       <div class="details">
-        <CustomComponents.badge status={@incident.status} />
+        <.badge status={@incident.status} />
         <div class="priority">
           {@incident.priority}
         </div>
