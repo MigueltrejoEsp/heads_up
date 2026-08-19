@@ -3,7 +3,7 @@ defmodule HeadsUpWeb.EffortLive do
 
   def mount(_params, _session, socket) do
     Process.send_after(self(), :tick, 2000)
-    socket = assign(socket, responders: 0, minutes_per_responder: 10)
+    socket = assign(socket, responders: 0, minutes_per_responder: 10, page_title: "Effort")
     {:ok, socket}
   end
 
